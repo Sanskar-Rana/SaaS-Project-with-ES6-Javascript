@@ -84,4 +84,13 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
+
+.button-container:hover {
+    background-color: #5a81ff;
+}
+
+
+/**Search End**/

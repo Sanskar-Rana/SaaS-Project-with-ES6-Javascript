@@ -1,3 +1,4 @@
 document.querySelector(".button-container").addEventListener("click", () => {
-    console.log("CLICK HERE")
+    let text = document.getElementById('filter-jobs').value;
+    console.log(text, 'this is text?');
 })
