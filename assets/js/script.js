@@ -1,6 +1,11 @@
 document.querySelector(".button-container").addEventListener("click", () => {
     let text = document.getElementById('filter-jobs').value;
-    console.log(text, 'this is text?');
+    getJobs().then(jobs => {
+        let filteredJobs = filterJobs(jobs, text);
+        showJobs(filteredJobs)
+
+    })
+
 })
 
 
@@ -12,10 +17,32 @@ function getJobs() {
         })
 }
 
+function filterJobs(jobs, searchText) {
+    if (searchText) {
+        let filteredJobs = jobs.filter(job => {
+            if (job.roleName.toLowerCase().includes(searchText) ||
+                job.type.toLowerCase().includes(searchText) ||
+                job.company.toLowerCase().includes(searchText) ||
+                job.requirements.content.toLowerCase().includes(searchText)) {
+                return true;
+            } else {
+                return false;
+            }
+        })
+        return filteredJobs;
+    } else {
+        return jobs;
+    }
+}
+
+
+
 function showJobs(jobs) {
-    console.log(jobs);
+
     let jobsContainer = document.querySelector(".jobs-container");
     let jobsHTML = "";
+    let count = 0;
+
     jobs.forEach(job => {
         jobsHTML += `
        <div class="job-tile">
@@ -39,8 +66,10 @@ function showJobs(jobs) {
        </div>
    </div>
        `
+        count += 1;
     })
     jobsContainer.innerHTML = jobsHTML;
+    document.getElementById('count').innerHTML = 'Showing ' + count + ' jobs'
 
 }
 getJobs().then(data => {
